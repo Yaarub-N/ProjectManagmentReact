@@ -1,0 +1,227 @@
+/* Definiera färgvariabler */
+:root {
+  --orange-jelly: #fcc404;
+  --sour-lemon: #fceca6;
+  --la-salle-green: #047434;
+  --stanford-green: #678f7c;
+  --rainsong: #acbcb4;
+  --green-pea: #295c46;
+  --text-light: var(--sour-lemon);
+  --text-dark: var(--la-salle-green);
+  --background-light: var(--sour-lemon);
+  --background-dark: var(--green-pea);
+  --border-color: var(--stanford-green);
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
+}
+
+/* Grundläggande stilar */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+.light-mode {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--green-pea); /* Ändrad till #295c46 (Green Pea) */
+  box-shadow: var(--shadow);
+  border-bottom: 2px solid transparent;
+}
+
+.navbar a {
+  color: var(--text-light); /* Ändrad till ljus text för bättre kontrast */
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem;
+  transition: var(--transition);
+}
+
+.navbar a:hover {
+  color: var(--orange-jelly); /* Hover-färg för länkar */
+}
+
+.navbar button {
+  background-color: var(--stanford-green);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: var(--text-light);
+  font-weight: bold;
+  border-radius: 5px;
+  transition: var(--transition);
+}
+.navbar button:hover {
+  background-color: var(--la-salle-green); /* Hover-färg för knapp */
+}
+
+/* Responsiv navbar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .navbar a,
+  .navbar button {
+    margin: 5px 0;
+  }
+}
+
+/* Formulär och input-fält */
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+input,
+button {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+input {
+  background-color: var(--rainsong);
+  color: var(--text-dark);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--green-pea);
+  box-shadow: 0 0 5px var(--green-pea);
+}
+
+button {
+  background-color: var(--la-salle-green);
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--green-pea);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Projektlista */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+li {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+li:hover {
+  background-color: var(--sour-lemon);
+  color: var(--la-salle-green);
+}
+
+a {
+  color: var(--shadow);
+  text-decoration: none;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--la-salle-green);
+}
+
+/* Projektdetaljer */
+.project-details {
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.delete-btn,
+.edit-btn {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.delete-btn {
+  background-color: var(--orange-jelly);
+  color: var(--text-dark);
+}
+
+.delete-btn:hover {
+  background-color: var(--green-pea);
+  color: var(--text-light);
+}
+
+.edit-btn {
+  background-color: var(--stanford-green);
+  color: var(--text-light);
+}
+
+.edit-btn:hover {
+  background-color: var(--la-salle-green);
+}
+
+/* Responsivitet */
+@media (max-width: 768px) {
+  form {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  input,
+  button {
+    width: 100%;
+  }
+
+  li {
+    padding: 0.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}
