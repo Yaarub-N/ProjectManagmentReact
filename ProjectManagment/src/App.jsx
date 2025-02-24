@@ -4,17 +4,26 @@ import ProjectList from "./components/ProjectList";
 import ProjectDetails from "./components/ProjectDetails";
 import CreateProject from "./components/CreateProject";
 import EditProject from "./components/EditProject";
+import Footer from "./components/Footer";
 
-const App = ({ darkMode, setDarkMode }) => {
+const App = () => {
   return (
     <Router>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Routes>
-        <Route path="/" element={<ProjectList />} />
-        <Route path="/create" element={<CreateProject />} />
-        <Route path="/projects/:projectNumber" element={<ProjectDetails />} />
-        <Route path="/edit/:projectNumber" element={<EditProject />} />
-      </Routes>
+      <div className="app-container">
+        <Navbar />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<ProjectList />} />
+            <Route path="/create" element={<CreateProject />} />
+            <Route
+              path="/projects/:projectNumber"
+              element={<ProjectDetails />}
+            />
+            <Route path="/edit/:projectNumber" element={<EditProject />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 };

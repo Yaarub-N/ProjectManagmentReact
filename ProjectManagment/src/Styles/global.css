@@ -1,227 +1,350 @@
-/* Definiera färgvariabler */
-:root {
-  --orange-jelly: #fcc404;
-  --sour-lemon: #fceca6;
-  --la-salle-green: #047434;
-  --stanford-green: #678f7c;
-  --rainsong: #acbcb4;
-  --green-pea: #295c46;
-  --text-light: var(--sour-lemon);
-  --text-dark: var(--la-salle-green);
-  --background-light: var(--sour-lemon);
-  --background-dark: var(--green-pea);
-  --border-color: var(--stanford-green);
-  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  --transition: all 0.2s ease;
-}
-
-/* Grundläggande stilar */
-body {
-  font-family: Arial, sans-serif;
+/* Global Reset */
+* {
   margin: 0;
   padding: 0;
-  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+/* Color Palette */
+:root {
+  --main-background-color: #0e1627; /* Dark Navy */
+  --main-text-color: #ffffff; /* White */
+  --main-text2-color: #f9c740; /* Gold */
+  --hover-color: #1d2738; /* Darker Navy */
+  --box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+  --card-box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+  --success-color: #81c784; /* Green */
+  --success-background: #1b3a2f; /* Dark Green */
 }
 
 .dark-mode {
-  background-color: var(--background-dark);
-  color: var(--text-light);
+  --main-background-color: #ffffff; /* White */
+  --main-text-color: #333333; /* Dark Gray */
+  --main-text2-color: #666666; /* Gray */
+  --hover-color: #e8f0fe; /* Light Blue */
+  --box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  --card-box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+  --success-color: #4caf50; /* Green */
+  --success-background: #e8f5e9; /* Light Green */
 }
 
-.light-mode {
-  background-color: var(--background-light);
-  color: var(--text-dark);
+/* Base Styles */
+body {
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Navbar */
-.navbar {
+/* Buttons */
+button {
+  background-color: var(--main-text2-color); /* Gold */
+  color: var(--main-background-color); /* Dark Navy or White */
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+button:hover,
+button:focus {
+  background-color: var(--hover-color);
+  outline: 2px solid var(--main-text2-color);
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header */
+header {
+  background-color: var(--main-background-color);
+  padding: 1rem;
+  color: var(--main-text-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--box-shadow);
+}
+
+header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: var(--green-pea); /* Ändrad till #295c46 (Green Pea) */
-  box-shadow: var(--shadow);
-  border-bottom: 2px solid transparent;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.navbar a {
-  color: var(--text-light); /* Ändrad till ljus text för bättre kontrast */
-  text-decoration: none;
+.nav-box {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: center;
+  width: fit-content;
+}
+
+.nav-box .logo {
   font-weight: bold;
-  padding: 0.5rem;
-  transition: var(--transition);
+  font-size: 1.5rem;
+  color: var(--main-text2-color); /* Gold */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: "Poppins", sans-serif; /* Modern Font */
 }
 
-.navbar a:hover {
-  color: var(--orange-jelly); /* Hover-färg för länkar */
-}
-
-.navbar button {
-  background-color: var(--stanford-green);
-  border: none;
-  padding: 0.5rem 1rem;
+header .menu-toggle {
+  display: none;
+  font-size: 2rem;
   cursor: pointer;
-  color: var(--text-light);
-  font-weight: bold;
+  background: none;
+  border: none;
+  color: var(--main-text-color);
+}
+
+/* Remove default styling for <Link> */
+.toggel-button-box {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color from parent */
+  display: inline-block; /* Ensure it behaves like a button container */
+  padding: 0;
+}
+
+.toggel-button-box:hover,
+.toggel-button-box:focus {
+  text-decoration: none; /* Ensure no underline on hover/focus */
+  outline: none; /* Remove focus outline */
+}
+
+.toggel-button {
+  padding: 0.4rem;
+  outline: 2px solid var(--main-text2-color);
+  text-decoration: none;
+  border: none;
+  background-color: var(--hover-color);
+  cursor: pointer;
+}
+
+.toggel-button:hover {
+  text-decoration: none;
+  outline: none;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 0;
+}
+
+header a {
+  color: var(--main-text-color);
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+header a:hover,
+header a:focus {
+  background-color: var(--hover-color);
+  color: var(--main-text2-color); /* Gold on Hover */
+  outline: none;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--main-background-color);
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--main-text-color);
+  box-shadow: var(--box-shadow);
+  margin-top: auto; /* Ensure footer stays at the bottom */
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.social-icon {
+  color: var(--main-text-color);
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: var(--main-text2-color); /* Gold on Hover */
+}
+
+/* Dark/Light Mode Toggle Button */
+.theme-toggle {
+  background-color: var(--main-text2-color); /* Gold */
+  color: var(--main-background-color); /* Dark Navy or White */
+  padding: 0.5rem 1rem;
   border-radius: 5px;
-  transition: var(--transition);
-}
-.navbar button:hover {
-  background-color: var(--la-salle-green); /* Hover-färg för knapp */
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
-/* Responsiv navbar */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    border-bottom: 2px solid var(--border-color);
-  }
-
-  .navbar a,
-  .navbar button {
-    margin: 5px 0;
-  }
+.theme-toggle:hover {
+  background-color: var(--hover-color);
+  color: var(--main-text2-color); /* Gold */
 }
 
-/* Formulär och input-fält */
+/* Forms */
+input,
+textarea {
+  padding: 0.75rem;
+  width: 100%;
+  border: 1px solid var(--hover-color);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 5px var(--main-text2-color);
+  outline: none;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  padding: 0.8rem;
+  gap: 1rem;
   max-width: 600px;
   margin: 0 auto;
 }
 
-label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-input,
-button {
-  padding: 0.5rem;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: var(--transition);
-}
-
-input {
-  background-color: var(--rainsong);
-  color: var(--text-dark);
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--green-pea);
-  box-shadow: 0 0 5px var(--green-pea);
-}
-
-button {
-  background-color: var(--la-salle-green);
-  color: var(--text-light);
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: var(--green-pea);
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-/* Projektlista */
-ul {
-  list-style-type: none;
+/* Project List */
+.project-list ul {
+  list-style: none;
   padding: 0;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
 }
 
-li {
+.project-list li {
+  background-color: var(--main-background-color);
   padding: 1rem;
-  border-bottom: 1px solid var(--border-color);
-  transition: var(--transition);
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease;
 }
 
-li:hover {
-  background-color: var(--sour-lemon);
-  color: var(--la-salle-green);
+.project-list li:hover,
+.project-list li:focus-within {
+  transform: scale(1.05);
 }
 
-a {
-  color: var(--shadow);
+.project-list a {
+  color: var(--main-text-color);
   text-decoration: none;
   font-weight: bold;
-  transition: var(--transition);
+  transition: color 0.3s ease;
 }
 
-a:hover {
-  color: var(--la-salle-green);
+.project-list a:hover,
+.project-list a:focus {
+  color: var(--main-text2-color); /* Gold */
 }
 
-/* Projektdetaljer */
-.project-details {
-  padding: 1rem;
+/* Project Details and Edit */
+.project-details,
+.edit-project {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background-color: var(--main-background-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
 }
 
-.delete-btn,
-.edit-btn {
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: var(--transition);
+.project-details h2,
+.edit-project h2 {
+  margin-bottom: 1.5rem;
+  color: var(--main-text-color);
 }
 
-.delete-btn {
-  background-color: var(--orange-jelly);
-  color: var(--text-dark);
+/* Responsive Design */
+@media (max-width: 1024px) {
+  header nav {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  header .menu-toggle {
+    display: block;
+  }
+
+  header ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  header ul li {
+    width: 100%;
+    text-align: center;
+    border-bottom: solid 1px;
+  }
+  header ul li:nth-last-child(1) {
+    margin-bottom: 0.8rem;
+  }
+  header ul li a {
+    display: block;
+    min-width: 100%;
+  }
+
+  header ul.active {
+    display: flex;
+  }
 }
 
-.delete-btn:hover {
-  background-color: var(--green-pea);
-  color: var(--text-light);
-}
-
-.edit-btn {
-  background-color: var(--stanford-green);
-  color: var(--text-light);
-}
-
-.edit-btn:hover {
-  background-color: var(--la-salle-green);
-}
-
-/* Responsivitet */
 @media (max-width: 768px) {
-  form {
+  .main-content {
     padding: 1rem;
-    width: 100%;
   }
 
-  input,
-  button {
-    width: 100%;
+  .project-list li {
+    padding: 0.75rem;
   }
 
-  li {
-    padding: 0.5rem;
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    padding: 0.5rem;
-  }
-
-  button {
-    font-size: 0.9rem;
+  .project-details,
+  .edit-project {
+    padding: 1rem;
   }
 }

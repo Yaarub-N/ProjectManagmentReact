@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createProject } from "../services/projectService";
 import { useNavigate } from "react-router-dom";
+import "../Styles/global.css";
 
 const CreateProject = () => {
   const navigate = useNavigate();
@@ -8,9 +9,9 @@ const CreateProject = () => {
     name: "",
     description: "",
     totalPrice: 0,
-    statusId: 1, // Default status "Not Started"
-    customerId: 1, // Placeholder, ändra vid behov
-    serviceId: 1, // Placeholder, ändra vid behov
+    statusId: 1,
+    customerId: 1,
+    serviceId: 1,
     startDate: "",
     endDate: "",
   });
@@ -25,7 +26,7 @@ const CreateProject = () => {
     e.preventDefault();
     try {
       await createProject(project);
-      navigate("/"); // Navigera tillbaka till projektlistan
+      navigate("/");
     } catch (error) {
       setError("❌ Misslyckades med att skapa projekt.");
       console.error("API error:", error);

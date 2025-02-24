@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProjectById, deleteProject } from "../services/projectService";
-import "../styles/global.css";
+import "../Styles/global.css";
 
 const ProjectDetails = () => {
   const { projectNumber } = useParams();

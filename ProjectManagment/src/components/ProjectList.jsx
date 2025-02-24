@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getProjects } from "../services/projectService";
 import { Link } from "react-router-dom";
+import "../Styles/global.css";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
@@ -12,13 +13,9 @@ const ProjectList = () => {
   const fetchProjects = async () => {
     try {
       const data = await getProjects();
-      console.log("✅ Hämtade projekt:", data);
-      if (data.length === 0) {
-        console.warn("⚠️ Inga projekt hittades!");
-      }
       setProjects(data);
     } catch (error) {
-      console.error("❌ Fel vid hämtning av projekt:", error);
+      console.error("Error fetching projects:", error);
     }
   };
 

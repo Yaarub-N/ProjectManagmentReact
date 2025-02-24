@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProjectById, updateProject } from "../services/projectService";
-import "../styles/global.css";
+import "../Styles/global.css";
 
 const EditProject = () => {
-  const { projectNumber } = useParams(); // Hämta projectNumber från URL:en
+  const { projectNumber } = useParams();
   const [project, setProject] = useState({
     name: "",
     description: "",
     totalPrice: 0,
-    statusId: 1, // Standardvärde
-    customerId: 1, // Standardvärde
-    serviceId: 1, // Standardvärde
+    statusId: 1,
+    customerId: 1,
+    serviceId: 1,
     startDate: "",
     endDate: "",
   });
@@ -25,19 +25,16 @@ const EditProject = () => {
   const fetchProject = async () => {
     try {
       const data = await getProjectById(projectNumber);
-      console.log("Fetched project data:", data); // Logga datan
-      if (data) {
-        setProject({
-          name: data.name,
-          description: data.description,
-          totalPrice: data.totalPrice,
-          statusId: data.statusId || 1, // Ange standardvärde om undefined
-          customerId: data.customerId || 1, // Ange standardvärde om undefined
-          serviceId: data.serviceId || 1, // Ange standardvärde om undefined
-          startDate: data.startDate.split("T")[0], // Format to yyyy-MM-dd
-          endDate: data.endDate.split("T")[0], // Format to yyyy-MM-dd
-        });
-      }
+      setProject({
+        name: data.name,
+        description: data.description,
+        totalPrice: data.totalPrice,
+        statusId: data.statusId || 1,
+        customerId: data.customerId || 1,
+        serviceId: data.serviceId || 1,
+        startDate: data.startDate.split("T")[0],
+        endDate: data.endDate.split("T")[0],
+      });
     } catch (error) {
       setError("Error fetching project details");
     }
@@ -49,23 +46,8 @@ const EditProject = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validera ID:n
-    if (!project.statusId || !project.customerId || !project.serviceId) {
-      setError("Ogiltigt status-, kund- eller tjänst-ID.");
-      return;
-    }
-
-    const formattedProject = {
-      ...project,
-      startDate: project.startDate,
-      endDate: project.endDate,
-    };
-
-    console.log("Submitting project:", formattedProject); // Logga värdena
-
     try {
-      await updateProject(projectNumber, formattedProject);
+      await updateProject(projectNumber, project);
       navigate(`/projects/${projectNumber}`);
     } catch (error) {
       setError("Misslyckades med att uppdatera projektet");
@@ -132,7 +114,6 @@ const EditProject = () => {
           />
         </label>
         <br />
-        {/* Lägg till dropdowns för status, kund och tjänst om det behövs */}
         <button type="submit">Spara ändringar</button>
       </form>
     </div>

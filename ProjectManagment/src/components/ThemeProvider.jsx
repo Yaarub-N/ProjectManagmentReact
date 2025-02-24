@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 
-// Skapa en Context för att hantera Dark Mode
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
