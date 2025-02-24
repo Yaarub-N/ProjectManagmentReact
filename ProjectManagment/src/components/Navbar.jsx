@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "./ThemeProvider"; // Importera Theme Hook
-import "../styles/navbar .css";
 
 const Navbar = () => {
   const { darkMode, setDarkMode } = useTheme();
