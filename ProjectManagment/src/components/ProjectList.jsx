@@ -20,20 +20,45 @@ const ProjectList = () => {
   };
 
   return (
-    <div>
-      <h2>📋 Projektlista</h2>
+    <div className="container">
+      <h2>Projektlista</h2>
       {projects.length === 0 ? (
-        <p>🚀 Inga projekt hittades! Lägg till ett nytt projekt.</p>
+        <p>Inga projekt hittades! Lägg till ett nytt projekt.</p>
       ) : (
-        <ul>
-          {projects.map((project) => (
-            <li key={project.projectNumber}>
-              <Link to={`/projects/${project.projectNumber}`}>
-                {project.name} - {project.status}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Namn</th>
+              <th>Status</th>
+
+              <th className="d-non-small-device">Tjänst</th>
+            </tr>
+          </thead>
+          <tbody>
+            {projects.map((project, index) => (
+              <tr key={project.projectNumber}>
+                <td>{index + 1}</td>
+                <td>
+                  <Link to={`/projects/${project.projectNumber}`}>
+                    {project.name}
+                  </Link>
+                </td>
+                <td>
+                  <Link to={`/projects/${project.projectNumber}`}>
+                    {project.status}
+                  </Link>
+                </td>
+
+                <td className="d-non-small-device">
+                  <Link to={`/projects/${project.projectNumber}`}>
+                    {project.serviceName}
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

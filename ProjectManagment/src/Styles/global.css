@@ -15,11 +15,13 @@ html {
   --main-background-color: #0e1627; /* Dark Navy */
   --main-text-color: #ffffff; /* White */
   --main-text2-color: #f9c740; /* Gold */
-  --hover-color: #1d2738; /* Darker Navy */
+  --hover-color: #273348; /* Darker Navy */
   --box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
   --card-box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
   --success-color: #81c784; /* Green */
   --success-background: #1b3a2f; /* Dark Green */
+  --error-color: #f44336; /* Red */
+  --error-background: #3b1e1e; /* Dark Red */
 }
 
 .dark-mode {
@@ -28,9 +30,11 @@ html {
   --main-text2-color: #666666; /* Gray */
   --hover-color: #e8f0fe; /* Light Blue */
   --box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  --card-box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+  --card-box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
   --success-color: #4caf50; /* Green */
   --success-background: #e8f5e9; /* Light Green */
+  --error-color: #d32f2f; /* Dark Red */
+  --error-background: #fbe9e7; /* Light Red */
 }
 
 /* Base Styles */
@@ -45,10 +49,143 @@ body {
   flex-direction: column;
 }
 
+/* App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  top: 117px;
+}
+
+/* Header */
+header {
+  padding: 0 0.5rem;
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: absolute;
+  min-width: calc(100% - 40px);
+  left: 50%;
+  transform: translate(-50%);
+  background-color: var(--main-background-color);
+  box-shadow: var(--box-shadow);
+  padding: 0 0.5rem;
+}
+
+.nav-box {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-box .logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--main-text2-color);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-family: "Lora", serif;
+}
+
+header .menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--main-text-color);
+}
+.theme-toggle {
+  padding: 0.5rem;
+  margin: 1rem;
+  background-color: var(--hover-color);
+  outline: 2px solid var(--main-text2-color);
+}
+.theme-toggle:hover {
+  outline: none;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+}
+
+header ul li {
+  padding: 1.5rem 1rem;
+  border-bottom: solid transparent;
+  transition: 0.3s ease;
+}
+
+header a {
+  color: var(--main-text-color);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+header li:hover,
+header li:focus {
+  background-color: var(--hover-color);
+  color: var(--main-text2-color);
+  outline: none;
+  border-bottom: solid var(--main-text2-color);
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  padding: 0.75rem;
+  width: 100%;
+  border: 2px solid var(--hover-color);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow: 0 0 5px var(--main-text2-color);
+  outline: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 /* Buttons */
 button {
-  background-color: var(--main-text2-color); /* Gold */
-  color: var(--main-background-color); /* Dark Navy or White */
+  background-color: var(--main-text2-color);
+  color: var(--main-background-color);
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 5px;
@@ -63,115 +200,165 @@ button:focus {
   outline: 2px solid var(--main-text2-color);
 }
 
-/* App Container */
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Header */
-header {
-  background-color: var(--main-background-color);
-  padding: 1rem;
+/* Specific Button Styles */
+.delete-btn {
+  background-color: var(--error-color);
   color: var(--main-text-color);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+}
+
+.edit-btn {
+  background-color: var(--success-color);
+  color: var(--main-text-color);
+}
+
+.back-btn {
+  background-color: var(--main-text2-color);
+  color: var(--main-background-color);
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+}
+
+.edit-btn:hover {
+  background-color: #4caf50;
+}
+
+.back-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--hover-color);
+}
+
+.table th {
+  background-color: var(--main-background-color);
+  color: var(--main-text2-color);
+  text-transform: uppercase;
+}
+
+.table tr:hover {
+  background-color: var(--hover-color);
+}
+
+.table a {
+  color: var(--main-text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.table a:hover {
+  color: var(--main-text2-color);
+}
+
+/*create-project*/
+.create-project h2 {
+  margin-bottom: 30px;
+  text-transform: capitalize;
+}
+
+/* Project Details */
+.project-details {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--main-background-color);
+  border-radius: 12px;
   box-shadow: var(--box-shadow);
 }
 
-header nav {
+.project-details h2 {
+  margin-bottom: 1.5rem;
+  color: var(--main-text2-color);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 1rem;
+  background-color: var(--hover-color);
+  border-radius: 8px;
+  box-shadow: var(--card-box-shadow);
 }
 
-.nav-box {
+.info-label {
+  font-weight: 600;
+  color: var(--main-text2-color);
+}
+
+.info-value {
+  color: var(--main-text-color);
+}
+
+.button-group {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 1rem;
-  align-items: center;
-  width: fit-content;
+  margin-top: 2rem;
 }
 
-.nav-box .logo {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: var(--main-text2-color); /* Gold */
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-family: "Poppins", sans-serif; /* Modern Font */
-}
-
-header .menu-toggle {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-  background: none;
+.delete-btn,
+.edit-btn,
+.back-btn {
+  padding: 0.75rem 1.5rem;
   border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-btn {
+  background-color: var(--error-color);
   color: var(--main-text-color);
 }
 
-/* Remove default styling for <Link> */
-.toggel-button-box {
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit text color from parent */
-  display: inline-block; /* Ensure it behaves like a button container */
-  padding: 0;
-}
-
-.toggel-button-box:hover,
-.toggel-button-box:focus {
-  text-decoration: none; /* Ensure no underline on hover/focus */
-  outline: none; /* Remove focus outline */
-}
-
-.toggel-button {
-  padding: 0.4rem;
-  outline: 2px solid var(--main-text2-color);
-  text-decoration: none;
-  border: none;
-  background-color: var(--hover-color);
-  cursor: pointer;
-}
-
-.toggel-button:hover {
-  text-decoration: none;
-  outline: none;
-}
-
-header ul {
-  list-style: none;
-  display: flex;
-  gap: 0;
-}
-
-header a {
+.edit-btn {
+  background-color: var(--success-color);
   color: var(--main-text-color);
-  text-decoration: none;
-  padding: 1rem 1.5rem;
-  transition: background-color 0.3s ease;
 }
 
-header a:hover,
-header a:focus {
-  background-color: var(--hover-color);
-  color: var(--main-text2-color); /* Gold on Hover */
-  outline: none;
+.back-btn {
+  background-color: var(--main-text2-color);
+  color: var(--main-background-color);
 }
 
+.delete-btn:hover {
+  background-color: #cc0000;
+  transform: translateY(-2px);
+}
+
+.edit-btn:hover {
+  background-color: #4caf50;
+  transform: translateY(-2px);
+}
+
+.back-btn:hover {
+  background-color: #e0a800;
+  transform: translateY(-2px);
+}
 /* Footer */
 .footer {
   background-color: var(--main-background-color);
@@ -179,122 +366,54 @@ header a:focus {
   text-align: center;
   color: var(--main-text-color);
   box-shadow: var(--box-shadow);
-  margin-top: auto; /* Ensure footer stays at the bottom */
+  margin-top: auto;
+  margin-top: 120px;
 }
 
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
 }
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
+/* Styles/global.css */
+.home {
+  text-align: center;
+  padding: 2rem;
 }
 
-.social-icon {
-  color: var(--main-text-color);
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
-
-.social-icon:hover {
-  color: var(--main-text2-color); /* Gold on Hover */
-}
-
-/* Dark/Light Mode Toggle Button */
-.theme-toggle {
-  background-color: var(--main-text2-color); /* Gold */
-  color: var(--main-background-color); /* Dark Navy or White */
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.theme-toggle:hover {
-  background-color: var(--hover-color);
-  color: var(--main-text2-color); /* Gold */
-}
-
-/* Forms */
-input,
-textarea {
-  padding: 0.75rem;
-  width: 100%;
-  border: 1px solid var(--hover-color);
-  border-radius: 5px;
+.home h1 {
+  font-size: 2.5rem;
   margin-bottom: 1rem;
+}
+.h1-Home {
+  color: var(--main-text2-color);
+}
+
+.home p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.home-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 3rem 0;
+  width: 100%;
+}
+
+.home button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
-  background-color: var(--main-background-color);
-  color: var(--main-text-color);
-  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: var(--main-text2-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
-input:focus,
-textarea:focus {
-  box-shadow: 0 0 5px var(--main-text2-color);
-  outline: none;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Project List */
-.project-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
-}
-
-.project-list li {
-  background-color: var(--main-background-color);
-  padding: 1rem;
-  margin: 0.5rem 0;
-  border-radius: 8px;
-  box-shadow: var(--box-shadow);
-  transition: transform 0.3s ease;
-}
-
-.project-list li:hover,
-.project-list li:focus-within {
-  transform: scale(1.05);
-}
-
-.project-list a {
-  color: var(--main-text-color);
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.project-list a:hover,
-.project-list a:focus {
-  color: var(--main-text2-color); /* Gold */
-}
-
-/* Project Details and Edit */
-.project-details,
-.edit-project {
-  max-width: 800px;
-  margin: 1.5rem auto;
-  padding: 1.5rem;
-  background-color: var(--main-background-color);
-  border-radius: 8px;
-  box-shadow: var(--box-shadow);
-}
-
-.project-details h2,
-.edit-project h2 {
-  margin-bottom: 1.5rem;
-  color: var(--main-text-color);
+.home button:hover {
+  background-color: var(--main-text2-color);
 }
 
 /* Responsive Design */
@@ -307,26 +426,34 @@ form {
 
   header .menu-toggle {
     display: block;
+    font-size: 2rem;
+  }
+
+  .d-non-small-device {
+    display: none;
   }
 
   header ul {
     display: none;
     flex-direction: column;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    position: absolute;
+    top: 66px;
+    background-color: var(--main-background-color);
+
+    width: calc(100% - 2rem);
+    transform: translate(-50%);
+    left: 50%;
+    box-shadow: var(--box-shadow);
+    border-radius: 0 0 5px 5px;
   }
   header ul li {
-    width: 100%;
-    text-align: center;
-    border-bottom: solid 1px;
-  }
-  header ul li:nth-last-child(1) {
-    margin-bottom: 0.8rem;
-  }
-  header ul li a {
     display: block;
-    min-width: 100%;
+    position: relative;
+    width: 100%;
+    padding-left: 20px;
+    border-bottom: solid var(--hover-color);
   }
 
   header ul.active {
@@ -339,12 +466,22 @@ form {
     padding: 1rem;
   }
 
-  .project-list li {
-    padding: 0.75rem;
+  .table th,
+  .table td {
+    padding: 8px;
+  }
+  .project-details {
+    padding: 1rem;
   }
 
-  .project-details,
-  .edit-project {
-    padding: 1rem;
+  .button-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .delete-btn,
+  .edit-btn,
+  .back-btn {
+    width: 100%;
   }
 }

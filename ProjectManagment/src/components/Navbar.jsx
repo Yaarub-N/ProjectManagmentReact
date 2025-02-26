@@ -6,7 +6,7 @@ import "../Styles/global.css";
 const Navbar = () => {
   const { darkMode, setDarkMode } = useTheme();
   const [menuActive, setMenuActive] = useState(false);
-  const location = useLocation(); // Hämta aktuell route
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
@@ -16,7 +16,6 @@ const Navbar = () => {
     setMenuActive(false);
   };
 
-  // Stäng menyn när routen ändras
   useEffect(() => {
     closeMenu();
   }, [location]);
@@ -25,41 +24,44 @@ const Navbar = () => {
     <header className={`header ${darkMode ? "dark-mode" : "light-mode"}`}>
       <nav>
         <div className="nav-box">
-          <h3 className="logo"> Mattin-Lassei Group AB</h3>
           <div className="menu-toggle" onClick={toggleMenu}>
             ☰
           </div>
-        </div>
-        <ul className={`ulMenu ${menuActive ? "active" : ""}`}>
-          <li>
-            <Link to="/create" onClick={closeMenu}>
-              ➕ Skapa Projekt
-            </Link>
-          </li>
-          <li>
-            <Link to="/projects" onClick={closeMenu}>
-              📂 Projekt lista
-            </Link>
-          </li>
-          <li>
-            <Link to="/" onClick={closeMenu}>
-              About us
-            </Link>
-          </li>
-          <li>
-            <Link to="/create" onClick={closeMenu}>
-              ➕ Skapa Projekt
-            </Link>
-          </li>
-        </ul>
-        <Link className="toggel-button-box" onClick={closeMenu}>
+
+          <h3 className="logo">
+            {" "}
+            <Link to="/">Mattin-Lassei Group AB</Link>
+          </h3>
+
+          <ul className={`ulMenu ${menuActive ? "active" : ""}`}>
+            <li>
+              <Link to="/" onClick={closeMenu}>
+                Start Sida
+              </Link>
+            </li>
+            <li>
+              <Link to="/create" onClick={closeMenu}>
+                Skapa Projekt
+              </Link>
+            </li>
+            <li>
+              <Link to="/projectList" onClick={closeMenu}>
+                Projektlista
+              </Link>
+            </li>
+            <li>
+              <Link to="/" onClick={closeMenu}>
+                Om oss
+              </Link>
+            </li>
+          </ul>
           <button
-            className="toggel-button"
+            className="theme-toggle"
             onClick={() => setDarkMode(!darkMode)}
           >
-            {darkMode ? "☀️" : "🌙"}
+            {darkMode ? "🌞" : "🌙"}
           </button>
-        </Link>
+        </div>
       </nav>
     </header>
   );

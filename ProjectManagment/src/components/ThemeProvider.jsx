@@ -24,5 +24,4 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-// Anpassad hook för att använda Dark Mode
 export const useTheme = () => useContext(ThemeContext);

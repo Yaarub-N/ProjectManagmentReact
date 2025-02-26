@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProjectById, updateProject } from "../services/projectService";
+import { getStatuses } from "../services/StatusService";
+import { getServices } from "../services/ServiceService";
 import "../Styles/global.css";
+import {
+  validateProjectName,
+  validateTotalPrice,
+} from "../Validation/Validation"; // Importera valideringsfunktioner
 
 const EditProject = () => {
   const { projectNumber } = useParams();
@@ -15,11 +21,15 @@ const EditProject = () => {
     startDate: "",
     endDate: "",
   });
+  const [statuses, setStatuses] = useState([]);
+  const [services, setServices] = useState([]);
   const [error, setError] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({}); // State för valideringsfel
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProject();
+    fetchStatusesAndServices();
   }, []);
 
   const fetchProject = async () => {
@@ -40,12 +50,51 @@ const EditProject = () => {
     }
   };
 
+  const fetchStatusesAndServices = async () => {
+    try {
+      const statusesData = await getStatuses();
+      const servicesData = await getServices();
+      setStatuses(statusesData);
+      setServices(servicesData);
+    } catch (error) {
+      console.error("Error fetching statuses or services:", error);
+      setError("Kunde inte hämta statusar eller tjänster.");
+    }
+  };
+
   const handleChange = (e) => {
-    setProject({ ...project, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setProject({ ...project, [name]: value });
+
+    // Validera fältet när värdet ändras
+    if (name === "name") {
+      setValidationErrors({
+        ...validationErrors,
+        name: validateProjectName(value),
+      });
+    } else if (name === "totalPrice") {
+      setValidationErrors({
+        ...validationErrors,
+        totalPrice: validateTotalPrice(value),
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Kör validering innan formuläret skickas
+    const nameError = validateProjectName(project.name);
+    const priceError = validateTotalPrice(project.totalPrice);
+
+    if (nameError || priceError) {
+      setValidationErrors({
+        name: nameError,
+        totalPrice: priceError,
+      });
+      return; // Avbryt om valideringsfel finns
+    }
+
     try {
       await updateProject(projectNumber, project);
       navigate(`/projects/${projectNumber}`);
@@ -54,7 +103,7 @@ const EditProject = () => {
     }
   };
 
-  if (error) return <p>{error}</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="edit-project">
@@ -69,8 +118,10 @@ const EditProject = () => {
             onChange={handleChange}
             required
           />
+          {validationErrors.name && (
+            <p style={{ color: "red" }}>{validationErrors.name}</p>
+          )}
         </label>
-        <br />
         <label>
           Beskrivning:
           <input
@@ -80,7 +131,6 @@ const EditProject = () => {
             onChange={handleChange}
           />
         </label>
-        <br />
         <label>
           Totalpris:
           <input
@@ -90,8 +140,10 @@ const EditProject = () => {
             onChange={handleChange}
             required
           />
+          {validationErrors.totalPrice && (
+            <p style={{ color: "red" }}>{validationErrors.totalPrice}</p>
+          )}
         </label>
-        <br />
         <label>
           Startdatum:
           <input
@@ -102,7 +154,6 @@ const EditProject = () => {
             required
           />
         </label>
-        <br />
         <label>
           Slutdatum:
           <input
@@ -113,7 +164,36 @@ const EditProject = () => {
             required
           />
         </label>
-        <br />
+        <label>
+          Status:
+          <select
+            name="statusId"
+            value={project.statusId}
+            onChange={handleChange}
+            required
+          >
+            {statuses.map((status) => (
+              <option key={status.id} value={status.id}>
+                {status.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Tjänst:
+          <select
+            name="serviceId"
+            value={project.serviceId}
+            onChange={handleChange}
+            required
+          >
+            {services.map((service) => (
+              <option key={service.id} value={service.id}>
+                {service.name}
+              </option>
+            ))}
+          </select>
+        </label>
         <button type="submit">Spara ändringar</button>
       </form>
     </div>

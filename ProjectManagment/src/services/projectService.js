@@ -1,10 +1,12 @@
+// projectService.js
+
 import axios from "axios";
 
-const API_URL = "https://localhost:7007/api/projects"; // Uppdatera med din API-URL
+const API_URL = "https://localhost:7007/api"; // Bas-URL för API:et
 
 export const getProjects = async () => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(`${API_URL}/projects`);
     return response.data;
   } catch (error) {
     console.error("❌ API error - getProjects:", error);
@@ -14,7 +16,7 @@ export const getProjects = async () => {
 
 export const getProjectById = async (projectNumber) => {
   try {
-    const response = await axios.get(`${API_URL}/${projectNumber}`);
+    const response = await axios.get(`${API_URL}/projects/${projectNumber}`);
     return response.data;
   } catch (error) {
     console.error(`❌ API error - getProjectById (${projectNumber}):`, error);
@@ -24,7 +26,7 @@ export const getProjectById = async (projectNumber) => {
 
 export const createProject = async (project) => {
   try {
-    const response = await axios.post(API_URL, project, {
+    const response = await axios.post(`${API_URL}/projects`, project, {
       headers: { "Content-Type": "application/json" },
     });
     return response.data;
@@ -36,9 +38,13 @@ export const createProject = async (project) => {
 
 export const updateProject = async (projectNumber, project) => {
   try {
-    const response = await axios.put(`${API_URL}/${projectNumber}`, project, {
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await axios.put(
+      `${API_URL}/projects/${projectNumber}`,
+      project,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(`❌ API error - updateProject (${projectNumber}):`, error);
@@ -48,7 +54,7 @@ export const updateProject = async (projectNumber, project) => {
 
 export const deleteProject = async (projectNumber) => {
   try {
-    await axios.delete(`${API_URL}/${projectNumber}`);
+    await axios.delete(`${API_URL}/projects/${projectNumber}`);
     return true;
   } catch (error) {
     console.error(`❌ API error - deleteProject (${projectNumber}):`, error);

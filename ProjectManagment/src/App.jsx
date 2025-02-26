@@ -5,6 +5,7 @@ import ProjectDetails from "./components/ProjectDetails";
 import CreateProject from "./components/CreateProject";
 import EditProject from "./components/EditProject";
 import Footer from "./components/Footer";
+import Home from "./components/Home";
 
 const App = () => {
   return (
@@ -13,7 +14,8 @@ const App = () => {
         <Navbar />
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<ProjectList />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/ProjectList" element={<ProjectList />} />
             <Route path="/create" element={<CreateProject />} />
             <Route
               path="/projects/:projectNumber"
