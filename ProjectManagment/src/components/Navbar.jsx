@@ -29,7 +29,6 @@ const Navbar = () => {
           </div>
 
           <h3 className="logo">
-            {" "}
             <Link to="/">Mattin-Lassei Group AB</Link>
           </h3>
 
