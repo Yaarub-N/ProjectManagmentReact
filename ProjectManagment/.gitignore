@@ -10,7 +10,7 @@ node_modules.log*
 
 # Dependencies
 node_modules/
-dist/
+
 dist-ssr/
 *.local
 
